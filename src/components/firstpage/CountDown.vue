@@ -44,7 +44,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 
-const targetDate = new Date('2024-08-18T15:00:00'); // Replace with your wedding date
+const targetDate = new Date('2024-10-27T10:30:00'); // Replace with your wedding date
 
 const timeLeft = ref(null);
 
