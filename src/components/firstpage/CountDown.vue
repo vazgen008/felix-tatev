@@ -33,6 +33,7 @@
             {{$t('countdownTimes.seconds')}}
         </div>
     </div>
+    
     </div>
     <div v-else>
       <p>It's the big day!</p>

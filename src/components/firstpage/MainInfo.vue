@@ -1,125 +1,334 @@
 <template>
-<div id="birthday" class="birthday">
-    <h1>{{$t('memories')}}</h1>
-    <div class="pics-of-qips">
-      <img src="./img/qip1.jpg" alt="">
-      <img src="./img/qip2.jpg" alt="">
-      <img src="./img/qip3.jpg" alt="">
-      <img src="./img/qip4.jpg" alt="">
-      <img src="./img/qper10.jpg" alt="">
-      <img src="./img/4ofus.jpg" alt="">
+<div id="wedding__main" class="wedding__main">
+    <div class="wedding__main--entry">
+        <p>{{$t('invitationText')}}</p>
     </div>
-    <div class="aniixosqere">
-      <div>
-      <h1>{{$t('usedwords')}}</h1>
-
-      </div>
-      <div class="words-with-imgs">
-        <div>
-          <img src="./img/vazgen-ani.jpg" alt="" @click="playAudio" >
-          <h2>{{$t('Vzgoani')}}</h2>
-          <audio ref="audio">
-            <source src="./img/anivzgo.mp3" type="audio/mp3" />
-          </audio>
-        </div>
-        <div>
-          <img src="./img/armen-ani.jpg" alt="" @click="playAudio2">
-          <h2>{{$t('ArmenAni')}}</h2>
-          <audio ref="audio2">
-            <source src="./img/armenani.mp3" type="audio/mp3" />
-          </audio>
-        </div>
-        <div>
-          <img src="./img/karulani.jpg" alt="" @click="playAudio3">
-          <h2>{{$t('KarulAni')}}</h2>
-          <audio ref="audio3">
-            <source src="./img/karulani.mp3" type="audio/mp3" />
-          </audio>
-        </div>
-      </div>
+    <div class="wedding__main--date">
+        <img src="./img/date.png" alt="">
     </div>
-
-    <div>
-      <h1>Անննսսսս էս նվերովել ուզումենք շնորհավորենք քեզ քեզ ամենալավ բաներւ Անննսսսս</h1>
-      <img src="./img/gift.jpg" alt="" class="gift">
+    <div class="wedding__main--ceremony">
+        <img src="./img/groom.png" alt="" class="groom-img">
+        <div class="ceremony__info">
+            <div class="ceremony__info--title">
+                {{$t('groom.title')}}
+            </div>
+            <div class="ceremony__info--time">
+                {{$t('groom.time')}}
+            </div>
+        </div>
+    </div>
+    <div class="wedding__main--ceremony">
+        <img src="./img/bride.png" alt="" class="bride-img">
+        <div class="ceremony__info">
+            <div class="ceremony__info--title">
+                {{$t('bride.title')}}
+            </div>
+            <div class="ceremony__info--time">
+                {{$t('bride.time')}}
+            </div>
+        </div>
+    </div>
+    <div class="wedding__main--ceremony ceremony">
+        <img src="https://optim.tildacdn.one/tild6463-3339-4162-a663-363765373465/-/cover/600x600/center/center/-/format/webp/ekexeci.png" alt="">
+        <div class="ceremony__info">
+            <div class="ceremony__info--title">
+                {{$t('ceremony.title')}}
+            </div>
+            <div class="ceremony__info--time">
+                {{$t('ceremony.time')}}
+            </div>
+            <div class="ceremony__info--church">
+                {{$t('ceremony.church')}}
+            </div>
+            <div class="ceremony__info--city">
+                {{$t('ceremony.city')}}
+            </div>
+            <div class="ceremony__info--action">
+               <a href="https://yandex.com/maps/-/CDd8mVKx" target="_blank"><button  class="ceremony--action">{{$t('weddingParty.buttonText')}}</button></a> 
+            </div>
+        </div>
+    </div>
+    <div class="wedding__main--party party">
+        <img src="https://optim.tildacdn.one/tild3038-3065-4637-b133-336233373764/-/cover/600x600/center/center/-/format/webp/handisutyun2.png" alt="">
+        <div class="party__info">
+            <div class="party__info--title">
+                {{$t('weddingParty.title')}}
+            </div>
+            <div class="party__info--time">
+                {{$t('weddingParty.time')}}
+            </div>
+            <div class="party__info--place">
+                {{$t('weddingParty.place')}}
+            </div>
+            <div class="party__info--city">
+                {{$t('weddingParty.city')}}
+            </div>
+            <div class="party__info--action">
+               <a href="https://yandex.com/maps/-/CDd8mCp-" target="_blank" ><button  class="ceremony--action">{{$t('weddingParty.buttonText')}}</button></a> 
+            </div>
+        </div>
     </div>
 </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-const audio = ref(null)
-const audio2 = ref(null)
-const audio3 = ref(null)
+import { onMounted, onUnmounted, ref } from "vue";
 
-// Function to play audio when the image is clicked
-const playAudio = () => {
-  audio2.value.pause()
-  audio3.value.pause()
 
-  audio.value.play()
-}
-const playAudio2 = () => {
-  audio.value.pause()
-  audio3.value.pause()
-  audio2.value.play()
-}
-const playAudio3 = () => {
-  audio2.value.pause()
-  audio.value.pause()
-  
-  audio3.value.play()
-}
+const showCeremonyButton = ref(false);
+const ceremonyButtonAlreadyVisible = ref(false);
+
+const ceremonyButtonScroll = () => {
+  const mainInfo = document.getElementsByClassName('wedding__main--ceremony')[2];
+  const rect = mainInfo.getBoundingClientRect();
+  const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+
+  // Check if the bottom of the element is in view
+  if (rect.bottom <= windowHeight) {
+    showCeremonyButton.value = true;
+    ceremonyButtonAlreadyVisible.value = true;
+  } else if (ceremonyButtonAlreadyVisible.value) {
+    showCeremonyButton.value = true;
+  } else {
+    showCeremonyButton.value = false;
+  }
+};
+
+
+onMounted(() => {
+  window.addEventListener('scroll', ceremonyButtonScroll);
+  ceremonyButtonScroll(); // Check initial scroll position
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', ceremonyButtonScroll);
+  window.removeEventListener('scroll', partyButtonScroll);
+});
 </script>
 
 <style scoped lang="scss">
+.groom-img{
+  width: 150px !important;
+  opacity: 0.7;
+
+}
+.bride-img{
+  opacity: 0.7;
+}
 @font-face {
   font-family: 'myfont';
   src: url('../fonts/myfont.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
-.birthday{
-    color: black;
-     & h1{
-    background: white;
-    padding: 20px 0;   
-    margin-bottom: 80px; 
-  }
-}
-.pics-of-qips{
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-    row-gap: 20px;
-    margin-bottom: 100px;
-    
-}
-.pics-of-qips img{
-  width: 300px;
-}
-.aniixosqere{
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
- 
-}
-img{
-  width: 300px;
-}
-.words-with-imgs{
-  & div{
+.wedding__main{
+    color: white;
+&--entry{
+    text-align: center;
     display: flex;
-    flex-direction: column;
+    width: 100%;
     align-items: center;
-    &>h2{
-      background: white;
-      padding: 20px 0;
+    justify-content: center;
+    & p{
+        font-size: 27px;
+        width: 700px;
+    font-family: 'myfont';
+
     }
+}
+&--date{
+    display: flex;
+    justify-content: center;
+    padding-top: 60px;
+    & img{
+        width: 760px;
+        height: 120px;
+        // height: 90px;
+    }
+}
+&--ceremony{
+    & img{
+        width: 400px;
+    }
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    & .ceremony__info{
+            display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    row-gap: 14px;
+        &--title{
+            width: 320px;
+                font-size: 25px;
+    color: #a9957d;
+    font-weight: 300;
+    font-family: 'MontserratARM';
+    text-transform: uppercase;
+        }
+        &--time{
+            font-size: 35px;
+    color: #a9957d;
+    font-weight: 700;
+    font-family: 'MontserratARM';
+        }
+         &--church{
+            font-size: 35px;
+    color: #a9957d;
+    font-weight: 700;
+    font-family: 'MontserratARM';
+        }
+        &--city{
+            font-size: 20px;
+    color: rgb(243, 237, 230);
+    font-family: 'MontserratARM';
+        }
+    }
+}
+&--ceremony{
+    & img{
+        width: 400px;
+    }
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    & .ceremony__info{
+            display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    row-gap: 14px;
+        &--title{
+            width: 320px;
+                font-size: 25px;
+    color: #a9957d;
+    font-weight: 300;
+    font-family: 'MontserratARM';
+    text-transform: uppercase;
+        }
+        &--time{
+            font-size: 35px;
+    color: #a9957d;
+    font-weight: 700;
+    font-family: 'MontserratARM';
+        }
+         &--church{
+            font-size: 35px;
+    color: #a9957d;
+    font-weight: 700;
+    font-family: 'MontserratARM';
+        }
+        &--city{
+            font-size: 20px;
+    color: rgb(243, 237, 230);
+    font-family: 'MontserratARM';
+        }
+    }
+}
+&--party{
+    margin-top: 40px;
+    & img{
+        width: 400px;
+    }
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    & .party__info{
+            display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    row-gap: 14px;
+        &--title{
+            width: 320px;
+                font-size: 25px;
+    color: #a9957d;
+    font-weight: 300;
+    font-family: 'MontserratARM';
+    text-transform: uppercase;
+        }
+        &--time{
+            font-size: 35px;
+    color: #a9957d;
+    font-weight: 700;
+    font-family: 'MontserratARM';
+        }
+         &--place{
+            font-size: 35px;
+    color: #a9957d;
+    font-weight: 700;
+    font-family: 'MontserratARM';
+        }
+        &--city{
+            font-size: 20px;
+    color: rgb(243, 237, 230);
+    font-family: 'MontserratARM';
+        }
+    }
+}
+}
+.ceremony--action {
+  opacity: 1 !important;
+  animation: fadeIn 2s forwards, fadeOut 0.5s forwards;
+  animation-play-state: paused;
+  color: white;
+  border: 3px solid #f3ede6;
+  background: none;
+  border-radius: 50px;
+  padding: 0 30px;
+  font-size: 20px;
+  height: 45px;
+  margin-top: 20px;
+}
+
+.visible {
+  animation-play-state: running;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+ 
+  100% {
+    opacity: 1;
   }
 }
-.gift{
-  width: 100%;
+
+@media screen and (min-width: 300px) and (max-width: 600px) {
+    
+    .wedding__main--date img {
+        width: 250px;
+        height: 90px;
+    }
+    .wedding__main{
+    color: white;
+&--entry{
+    text-align: center;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    & p{
+        font-size: 27px;
+        width: auto;
+    }
+}
+}
+.bride-img{
+  opacity: 0.7;
+  // margin-left: 50px;
+}
+    
 }
 </style>

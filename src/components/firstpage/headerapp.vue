@@ -1,37 +1,47 @@
 <template>
-<img src="./img/anibg.jpg" alt="" class="background">
-<img src="./img/anibg.jpg" alt="" class="respbg">
+<img src="./img/background2.jpg" alt="" class="background">
+<img src="./img/background2resp.jpg" alt="" class="respbg">
     <div class="wedding__invitation">
         <div class="wedding__invitation--info invitation__info">
             <div class="languageAction">
-            <button class="language" @click="$i18n.locale = $i18n.locale === 'am' ? 'en' : 'am'">{{$i18n.locale}} | {{$i18n.locale == 'am' ? 'en':'am'}}</button> 
+            <button class="language" @click="$i18n.locale = $i18n.locale === 'am' ? 'ru' : 'am'">{{$i18n.locale}} | {{$i18n.locale == 'am' ? 'ru':'am'}}</button> 
             </div>
             <div class="invitation__info--header">
                 <h1>{{ $t('title') }}</h1>
             </div>
             <div class="invitation__info--names" v-if="$i18n.locale === 'am'">
                 <img src="https://static.tildacdn.one/tild3132-3965-4765-b164-643561323563/01.svg" class="circle" alt="">
-                <img src="./img/rings (2).png" class="wedding--rings" alt="">
-                <h1 class="name--artur">{{ $t('title') }}</h1>
-                <h1 class="name--liana">{{ $t('title2') }}</h1>
-                
+                <img src="./img/rings.png" class="wedding--rings" alt="">
+                <img src="./img/felix.png" class="name--felix" alt="">
+                <img src="./img/tatev.png" class="name--tatev" alt="">
             </div>
             <div class="invitation__info--names" v-else>
                 <img src="https://static.tildacdn.one/tild3132-3965-4765-b164-643561323563/01.svg" class="circle" alt="">
-                 <img src="./img/rings (2).png" class="wedding--rings" alt="">
-                <h1 class="name--artur">{{ $t('title') }}</h1>
-                <h1 class="name--liana">{{ $t('title2') }}</h1>
+                <img src="./img/rings.png" class="wedding--rings" alt="">
                 
+                <img src="./img/felixru.png" class="name--felix fru" alt="">
+                <img src="./img/tatevru3.png" class="name--tatev tru" alt="">
             </div>
-            
+            <div class="invitation__info--countdown">
+                <h1>{{$t('countdown')}}</h1>
+                 <CountDown/>
+                 <a href="#wedding__main">
+                 <img src="https://static.tildacdn.one/tild6432-6432-4261-b335-666136386561/Slaq.svg" alt="">
+                 </a>
+            </div>
         </div>
         <MainInfo/>
+        <!-- <dresscode/> -->
+        <Footer/>
     </div>
 </template>
 
 
 <script setup>
+import CountDown from './CountDown.vue'
 import MainInfo from './MainInfo.vue'
+import dresscode from './dresscode.vue'
+import Footer from './Footer.vue'
 </script>
 
 
@@ -68,6 +78,12 @@ import MainInfo from './MainInfo.vue'
         color: white;
     }
 }
+.tru{
+    padding: 0 !important;
+}
+.fru,.tru{
+    width: 130px !important;
+}
 .invitation__info{
      padding-top: 40px; 
     &--header{
@@ -75,8 +91,6 @@ import MainInfo from './MainInfo.vue'
         font-weight: 300;
         line-height: 37px;
         text-align: center;
-     color: #9a780b;
-
     &h1{
         padding-left: 320px;
         width: 560px;
@@ -91,17 +105,14 @@ import MainInfo from './MainInfo.vue'
             border-radius: 10px;
             background: none;
             background-position: center center;
-            border-color: black;
+            border-color: #f3ede6;
             border-style: solid;
             transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
-
-            color: black;
+            color: #f3ede6;
             margin-bottom: 6px;
             margin-left: 120px;
         }
     &--names{
-     color: #9a780b;
-
         padding-top: 20px;
     display: flex;
     align-items: center;
@@ -116,20 +127,20 @@ import MainInfo from './MainInfo.vue'
     position: relative;
 
         }
-        & .name--artur{
+        & .name--felix{
             // left: 601px;
             margin-right: 50px;
             top: 110px;
-            width: auto;
+            width: 120px;
             zoom: 1.122;
             position: absolute;
             animation: nameanimation 1.6s linear forwards;
             backface-visibility: hidden;
         }
-         & .name--liana{
+         & .name--tatev{
             // left: 620px;
             margin-left: 50px;
-
+            padding-top: 12px;
             top: 160px;
             width: 120px;
             zoom: 1.122;
